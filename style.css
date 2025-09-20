@@ -41,16 +41,18 @@ body{
 
 /* =================== INTRO =================== */
 #logo{
-  display: block;
-  max-width: 250px;
-  width: 100%;
+  max-width: none !important;   /* neutraliza limites antigos */
+  width: clamp(260px, 70vw, 300px);  /* bem maior no mobile, com teto em telas grandes */
   height: auto;
-  margin: 10px auto 24px;
-}
-@media (max-width: 480px){
-  #logo{ max-width: 110px; margin-bottom: 18px; }
+  margin: 16px auto 24px;
 }
 
+/* Se quiser ainda maior no celular estreito */
+@media (max-width: 480px){
+  #logo{
+    width: clamp(300px, 78vw, 460px);
+  }
+}
 #screen-intro{ text-align: center; }
 .intro-content{
   display: flex; flex-direction: column; align-items: center; justify-content: center;
