@@ -1,0 +1,292 @@
+/* =================== TOKENS =================== */
+:root{
+  --brand: #a71916;     /* vermelho Unicap */
+  --brand-dark: #800e0e;
+  --ink: #111111;
+  --muted: #555555;
+  --stroke: #e2e2e2;
+  --radius: 18px;
+  --gap: 20px;
+  --fs-base: clamp(16px, 2.6vh + 0.4vw, 20px);
+  --footer-h: 52px;
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; margin: 0; }
+body{
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: var(--fs-base);
+  background: #ffffff;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =================== APP WRAPPER =================== */
+#app{
+  min-height: 100dvh;
+  display: grid;
+  place-items: start center;
+  padding: 24px env(safe-area-inset-right) calc(var(--footer-h) + 24px) env(safe-area-inset-left);
+}
+
+/* Telas */
+.screen{
+  width: min(960px, 100%);
+  background: #ffffff;
+  padding: clamp(18px, 4vh, 42px) clamp(18px, 6vw, 48px);
+  display: none;
+}
+.screen.active{ display: block; }
+
+/* =================== INTRO =================== */
+#logo{
+  display: block;
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+  margin: 10px auto 24px;
+}
+@media (max-width: 480px){
+  #logo{ max-width: 110px; margin-bottom: 18px; }
+}
+
+#screen-intro{ text-align: center; }
+.intro-content{
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+#screen-intro h1{
+  font-size: clamp(28px, 6vw, 42px);
+  font-weight: 800;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+#screen-intro .lead{
+  color: var(--muted);
+  font-size: clamp(16px, 4.5vw, 20px);
+  line-height: 1.6;
+  max-width: 70ch;
+  margin: 0 auto 60px;
+}
+
+/* =================== BOTÕES (base) =================== */
+.btn{
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-weight: 700;
+  min-height: 50px;
+  min-width: 160px;
+}
+.btn.primary{ background: var(--brand); color:#fff; }
+.btn.primary:hover{ background: var(--brand-dark); }
+.btn.primary:disabled{ opacity:.6; cursor:not-allowed; }
+
+/* Padrão do botão "Iniciar" e replicado nos demais */
+#btnStart,
+#btnToQuiz,
+#btnNext,
+#btnSend{
+  display: block;
+  margin: 24px auto 0;
+  padding: 16px 32px;     /* botão mais “encorpado” */
+  border-radius: 999px;
+  min-width: 220px;
+  width: auto;
+}
+/* “OK” maior (cadastro e quiz) */
+#btnToQuiz,
+#btnNext{ font-size: 1.2em; }
+/* Destaque extra do Iniciar */
+#btnStart{ font-size: 1.2em; margin-top: 80px; }
+@media (max-width: 600px){
+  #screen-intro h1{ font-size: clamp(32px, 7vw, 50px); margin-top: 32px; margin-bottom: 28px; }
+  #screen-intro .lead{ font-size: clamp(18px, 5vw, 22px); margin-bottom: 80px; }
+  #btnStart{ margin-top: 100px; }
+}
+
+/* =================== VOLTAR (só a seta) =================== */
+.formHeader .btn.ghost{
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.formHeader .btn.ghost::before{
+  content: "←";
+  font-size: 50px;
+  line-height: 1;
+  color: var(--brand);
+}
+@media (max-width: 600px){
+  .formHeader .btn.ghost::before{ font-size: 50px; }
+}
+
+/* Cabeçalhos */
+.formHeader{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.formHeader h2{
+  margin: 0;
+  text-align: left;
+  font-size: clamp(22px, 2.3vh + 1vw, 36px);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Cadastro: título maior no mobile */
+@media (max-width: 600px){
+  #screen-signup .formHeader h2{
+    font-size: clamp(28px, 9vw, 30px); /* aumenta no celular */
+  }
+}
+
+
+/* =================== FORM / CAMPOS =================== */
+form{ display: grid; gap: var(--gap); }
+.field{ display: grid; gap: 8px; }
+
+label{ font-weight: 500; color: var(--ink); }
+.req{ color: var(--brand); }
+
+input[type="text"],
+input[type="tel"],
+input[type="email"]{
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--brand);
+  border-radius: 0;
+  padding: 12px 6px 10px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1em;
+}
+input::placeholder{ color:#888; }
+input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
+
+.error{
+  color:#b40000;
+  font-weight:400;
+  font-style: italic;
+  font-size:.85em;
+  min-height:1em;
+}
+.msg{ text-align:center; color:#1a7f37; min-height:1.2em; font-weight:600; }
+
+/* =================== QUIZ =================== */
+.progress{ display:flex; align-items:center; gap:10px; margin-left:auto; }
+#progressText{ font-size:.9em; color:#666; }
+.progress .bar{ width:140px; height:8px; background:#eee; border-radius:999px; overflow:hidden; }
+#progressBar{ height:100%; width:0%; background:var(--brand); transition: width .25s ease; }
+
+.quiz-card{ display:grid; gap:16px; }
+
+/* título da pergunta maior (não diminui tanto) */
+#qTitle{
+  text-align:left;
+  font-size: clamp(24px, 2.2vh + 1vw, 38px);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* opções do quiz — texto completo e menos bold */
+.options{ display:grid; gap:12px; }
+.option{
+  display:flex; align-items:flex-start; gap:12px;
+  padding:16px 18px;
+  border:1px solid #ddd; border-radius: var(--radius);
+  background:#fafafa; cursor:pointer;
+  transition: background .2s, border-color .2s, color .2s, box-shadow .2s;
+  font-weight: 400;
+}
+.option:hover{ background:#fff1f1; border-color: var(--brand); }
+.option input{ display:none; }
+.option span{
+  flex:1; color:var(--ink); line-height:1.35; font-weight:400;
+  white-space: normal;        /* mostra o texto completo */
+  overflow: visible;
+  text-overflow: clip;
+}
+.option::before{ content: attr(data-letter) "."; font-weight:700; color: var(--brand); margin-right:6px; }
+.option.selected{ background:var(--brand); border-color:var(--brand); color:#fff; }
+.option.selected span{ color:#fff; font-weight: 600; }
+.option.selected::before{ color:#fff; }
+
+/* =================== RESULTADO =================== */
+.result{
+  display:grid;
+  gap:18px;
+}
+.result h3{
+  margin:0;
+  text-align:center;
+  font-size: clamp(20px, 2vh + 1vw, 34px);
+  color:var(--ink);
+}
+.result p{
+  margin:0;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* Cursos com bullets (vermelhos), duas colunas em telas largas */
+.result ul{
+  margin: 6px auto 0;
+  padding-left: 1.25em;      /* espaço para o marcador */
+  list-style: disc;          /* bullets */
+  list-style-position: outside;
+  text-align: left;          /* marcador aparece corretamente */
+  column-gap: 28px;
+  columns: 1;
+  max-width: 80ch;           /* bloco centralizado */
+}
+.result ul li{
+  padding: 4px 0;
+  break-inside: avoid;       /* evita cortar itens entre colunas */
+}
+.result ul li::marker{
+  color: var(--brand);        /* bullets na cor da Unicap */
+}
+@media (min-width: 900px){
+  .result ul{ columns: 2; }
+}
+
+/* Frase do estande mais afastada do bloco de cursos */
+.result p:last-of-type{ margin-top: 28px; }
+
+/* =================== RODAPÉ FIXO =================== */
+#app-footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--footer-h);
+  background: #fff;
+  border-top: 1px solid #eee;
+  display: grid; place-items: center;
+  padding: 0 12px;
+  z-index: 10;
+}
+#app-footer p{ margin:0; color:#777; font-size:.80em; }
+
+@media (max-width: 600px){
+  #app-footer p{ font-size: .65em; }
+}
+
+/* =================== RESPONSIVIDADE GLOBAL =================== */
+@media (orientation: portrait){
+  :root{ --fs-base: clamp(18px, 3.2vh + 0.6vw, 22px); }
+}
+@media (orientation: landscape) and (max-height: 520px){
+  :root{ --fs-base: clamp(15px, 1.5vh + 0.6vw, 18px); }
+}
+
+/* Enviar — maior no desktop */
+#btnSend{
+  font-size: 1.25em;      /* texto maior */
+  padding: 18px 40px;     /* mais “corpo” */
+  min-width: 260px;       /* um pouco mais largo */
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>O Futuro Espera Por Você — Unicap</title>
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main id="app">
+    <!-- TELA 0: Intro -->
+    <section id="screen-intro" class="screen active" aria-labelledby="introTitle">
+      <img id="logo" src="./logo-unicap.svg" alt="Logomarca Unicap" />
+      <div class="intro-content">
+        <h1 id="introTitle">O Futuro Espera Por Você!</h1>
+        <p class="lead">
+          Você tem talentos únicos, sonhos que valem a pena e um futuro esperando para ser
+          construído — por você. Responda a 10 perguntas rápidas e viva uma experiência
+          que pode te ajudar a enxergar o seu caminho. No final, você ainda leva um brinde
+          exclusivo da Universidade Católica de Pernambuco (Unicap).
+        </p>
+        <button id="btnStart" class="btn primary" type="button">Iniciar</button>
+      </div>
+    </section>
+
+    <!-- TELA 1: Cadastro -->
+    <section id="screen-signup" class="screen" aria-labelledby="title-signup">
+      <header class="formHeader">
+        <button class="btn ghost" type="button" data-back="intro" aria-label="Voltar"></button>
+        <h2 id="title-signup">Cadastro</h2>
+      </header>
+
+      <form id="form-signup" novalidate>
+        <div class="field">
+          <label for="nome">Nome completo <span class="req">*</span></label>
+          <input id="nome" name="nome" type="text" required placeholder="Digite seu nome" />
+          <small class="error" data-for="nome"></small>
+        </div>
+
+        <div class="field">
+          <label for="telefone">Telefone ou WhatsApp <span class="req">*</span></label>
+          <input id="telefone" name="telefone" type="tel" inputmode="tel" required placeholder="(81) 9 9999-9999" />
+          <small class="error" data-for="telefone"></small>
+        </div>
+
+        <div class="field">
+          <label for="escola">Escola <span class="req">*</span></label>
+          <input id="escola" name="escola" type="text" required placeholder="Nome da escola" />
+          <small class="error" data-for="escola"></small>
+        </div>
+
+        <div class="field">
+          <label for="serie">Série <span class="req">*</span></label>
+          <input id="serie" name="serie" type="text" required placeholder="Ex.: 2º ano do Ensino Médio" />
+          <small class="error" data-for="serie"></small>
+        </div>
+
+        <button id="btnToQuiz" class="btn primary" type="submit">OK</button>
+      </form>
+    </section>
+
+    <!-- TELA 2: Quiz -->
+    <section id="screen-quiz" class="screen" aria-live="polite">
+      <header class="formHeader">
+        <button class="btn ghost" type="button" data-back="signup" aria-label="Voltar"></button>
+        <div class="progress">
+          <span id="progressText">1/10</span>
+          <div class="bar"><div id="progressBar"></div></div>
+        </div>
+      </header>
+
+      <div id="quizCard" class="quiz-card">
+        <h2 id="qTitle">Pergunta</h2>
+        <div id="qOptions" class="options"></div>
+        <small class="error" data-for="quiz"></small>
+        <button id="btnNext" class="btn primary" type="button">OK</button>
+      </div>
+    </section>
+
+    <!-- TELA 3: Resultado -->
+    <section id="screen-result" class="screen" aria-labelledby="title-result">
+      <header class="formHeader">
+        <button class="btn ghost" type="button" data-back="quiz" aria-label="Voltar"></button>
+        <h2 id="title-result">Resultado</h2>
+      </header>
+
+      <article id="resultContent" class="result"></article>
+
+      <div class="actions">
+        <button id="btnSend" class="btn primary" type="button">Enviar</button>
+        <p id="sendMsg" class="msg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Rodapé global (fixo em todas as telas) -->
+    <footer id="app-footer">
+      <p>&copy; 2025 Unicap | Developed by Jeff Marques</p>
+    </footer>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
