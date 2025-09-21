@@ -128,7 +128,7 @@ body{
   color: var(--brand);
 }
 @media (max-width: 600px){
-  .formHeader .btn.ghost::before{ font-size: 35px; }
+  .formHeader .btn.ghost::before{ font-size: 30px; }
 }
 
 /* Cabeçalhos */
@@ -335,4 +335,35 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
 
 #screen-quiz #btnNext{
   margin-top: 10px;   /* antes era ~24px */
+}
+
+/* Mobile: botão OK mais perto das perguntas */
+@media (max-width: 600px){
+  #screen-quiz .quiz-card{
+    gap: 8px;                 /* menos espaço entre título, opções e botão */
+  }
+}
+
+/* Mobile: diminuir um pouco o botão OK */
+@media (max-width: 600px){
+  #btnNext,
+  #btnToQuiz{
+    font-size: 0.95em;
+    padding: 9px 16px;
+    min-width: 140px;
+    min-height: 44px;   /* mantém área de toque segura */
+    margin-top: 6px;
+  }
+}
+
+/* Resultado: afastar o botão da frase final */
+#screen-result .actions{
+  margin-top: 35px; /* ajuste livre: 24–40px */
+}
+
+/* Mobile: um pouco menos (se quiser) */
+@media (max-width: 600px){
+  #screen-result .actions{
+    margin-top: 28px;
+  }
 }
