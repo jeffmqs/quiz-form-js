@@ -304,12 +304,14 @@ function renderResult(k){
   resultContent.innerHTML = `
     <h3>${title}</h3>
     <p>${desc}</p>
+    <p><strong>Cursos Unicap para você:</strong></p>
     <ul>${cursos.map(c => `<li>${c}</li>`).join('')}</ul>
     <p><strong>➡️ Vá até o estande da Unicap (6C)</strong>, mostre sua tela final e ganhe um brinde exclusivo!</p>
   `;
 
   finalProfile = k;
 }
+
 
 /* =================== ENVIO → GOOGLE SHEETS =================== */
 const btnSend = document.getElementById('btnSend');

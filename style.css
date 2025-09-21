@@ -367,3 +367,10 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
     margin-top: 28px;
   }
 }
+
+@media (max-width: 600px){
+  #screen-result .result h3{
+    font-size: clamp(26px, 8.5vw, 34px); /* maior no cel */
+    line-height: 1.25;
+  }
+}
