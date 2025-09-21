@@ -42,12 +42,11 @@ body{
 /* =================== INTRO =================== */
 #logo{
   max-width: none !important;   /* neutraliza limites antigos */
-  width: clamp(260px, 70vw, 300px);  /* bem maior no mobile, com teto em telas grandes */
+  width: clamp(260px, 70vw, 300px);
   height: auto;
   margin: 16px auto 24px;
 }
 
-/* Se quiser ainda maior no celular estreito */
 @media (max-width: 480px){
   #logo{
     width: clamp(300px, 78vw, 460px);
@@ -86,27 +85,33 @@ body{
 .btn.primary:hover{ background: var(--brand-dark); }
 .btn.primary:disabled{ opacity:.6; cursor:not-allowed; }
 
-/* Padrão do botão "Iniciar" e replicado nos demais */
+/* ===== Botões do fluxo (tamanho unificado) ===== */
 #btnStart,
 #btnToQuiz,
 #btnNext,
 #btnSend{
   display: block;
-  margin: 24px auto 0;
-  padding: 16px 32px;     /* botão mais “encorpado” */
+  margin: 16px auto 0;  /* mesmo espaçamento base */
+  padding: 12px 24px;   /* mais compacto */
   border-radius: 999px;
-  min-width: 220px;
+  min-width: 180px;     /* antes 220px */
+  min-height: 46px;     /* antes 50px */
   width: auto;
+  font-size: 1.05em;    /* unificado (antes havia 1.2/1.25) */
 }
-/* “OK” maior (cadastro e quiz) */
-#btnToQuiz,
-#btnNext{ font-size: 1.2em; }
-/* Destaque extra do Iniciar */
-#btnStart{ font-size: 1.2em; margin-top: 80px; }
+
+/* ===== Mobile: ainda mais compacto ===== */
 @media (max-width: 600px){
-  #screen-intro h1{ font-size: clamp(32px, 7vw, 50px); margin-top: 32px; margin-bottom: 28px; }
-  #screen-intro .lead{ font-size: clamp(18px, 5vw, 22px); margin-bottom: 80px; }
-  #btnStart{ margin-top: 100px; }
+  #btnStart,
+  #btnToQuiz,
+  #btnNext,
+  #btnSend{
+    font-size: 1em;
+    padding: 11px 20px;
+    min-width: 150px;
+    min-height: 44px;
+    margin-top: 12px;
+  }
 }
 
 /* =================== VOLTAR (só a seta) =================== */
@@ -123,7 +128,7 @@ body{
   color: var(--brand);
 }
 @media (max-width: 600px){
-  .formHeader .btn.ghost::before{ font-size: 50px; }
+  .formHeader .btn.ghost::before{ font-size: 35px; }
 }
 
 /* Cabeçalhos */
@@ -144,10 +149,9 @@ body{
 /* Cadastro: título maior no mobile */
 @media (max-width: 600px){
   #screen-signup .formHeader h2{
-    font-size: clamp(28px, 9vw, 30px); /* aumenta no celular */
+    font-size: clamp(28px, 9vw, 30px);
   }
 }
-
 
 /* =================== FORM / CAMPOS =================== */
 form{ display: grid; gap: var(--gap); }
@@ -210,7 +214,7 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
 .option input{ display:none; }
 .option span{
   flex:1; color:var(--ink); line-height:1.35; font-weight:400;
-  white-space: normal;        /* mostra o texto completo */
+  white-space: normal;
   overflow: visible;
   text-overflow: clip;
 }
@@ -239,20 +243,20 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
 /* Cursos com bullets (vermelhos), duas colunas em telas largas */
 .result ul{
   margin: 6px auto 0;
-  padding-left: 1.25em;      /* espaço para o marcador */
-  list-style: disc;          /* bullets */
+  padding-left: 1.25em;
+  list-style: disc;
   list-style-position: outside;
-  text-align: left;          /* marcador aparece corretamente */
+  text-align: left;
   column-gap: 28px;
   columns: 1;
-  max-width: 80ch;           /* bloco centralizado */
+  max-width: 80ch;
 }
 .result ul li{
   padding: 4px 0;
-  break-inside: avoid;       /* evita cortar itens entre colunas */
+  break-inside: avoid;
 }
 .result ul li::marker{
-  color: var(--brand);        /* bullets na cor da Unicap */
+  color: var(--brand);
 }
 @media (min-width: 900px){
   .result ul{ columns: 2; }
@@ -286,9 +290,45 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
   :root{ --fs-base: clamp(15px, 1.5vh + 0.6vw, 18px); }
 }
 
-/* Enviar — maior no desktop */
-#btnSend{
-  font-size: 1.25em;      /* texto maior */
-  padding: 18px 40px;     /* mais “corpo” */
-  min-width: 260px;       /* um pouco mais largo */
+/* ===== Intro: aproximar botão do texto ===== */
+#screen-intro .intro-content{ gap: 12px; }
+#screen-intro .lead{ margin: 0 auto 24px; }
+#btnStart{ margin-top: 8px; }
+
+/* Mobile: um pouquinho mais de respiro, mas ainda perto */
+@media (max-width: 600px){
+  #screen-intro .lead{ margin-bottom: 20px; }
+  #btnStart{ margin-top: 6px; }
+}
+
+@media (max-width: 600px){
+  #logo{
+    width: clamp(160px, 50vw, 220px); /* antes 300–460px */
+  }
+}
+
+/* Afinar as linhas vermelhas dos campos */
+#screen-signup input[type="text"],
+#screen-signup input[type="tel"],
+#screen-signup input[type="email"]{
+  border-bottom-width: 1px;   /* era 2px */
+}
+
+/* Mantém fino também no foco */
+#screen-signup input[type="text"]:focus,
+#screen-signup input[type="tel"]:focus,
+#screen-signup input[type="email"]:focus{
+  border-bottom-width: 1px;   /* pode deixar 1px ou 1.5px se quiser um leve destaque */
+}
+
+/* 1) "Seu perfil é: ..." na cor da Unicap */
+#screen-result .result h3{
+  color: var(--brand);
+}
+
+/* 2) "Resultado" um pouco maior no mobile */
+@media (max-width: 600px){
+  #screen-result .formHeader h2{
+    font-size: clamp(20px, 9vw, 28px); /* maior no celular */
+  }
 }

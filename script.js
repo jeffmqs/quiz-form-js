@@ -287,7 +287,7 @@ function renderResult(k){
     title = 'Seu perfil é: Exatas & Tecnologia';
     desc  = 'Você tem uma mente lógica, investigativa e movida a desafios. Curioso por natureza, adora entender como as coisas funcionam e busca criar soluções para o mundo.';
     cursos = [
-      'Administração','Arquitetura e Urbanismo','Banco de Dados – IA e Ciência de Dados','Ciência da Computação',
+      'Arquitetura e Urbanismo','Banco de Dados – IA e Ciência de Dados','Ciência da Computação',
       'Ciências Contábeis','Ciências Econômicas','Engenharia da Complexidade (pioneiro e internacional)',
       'Engenharias (Civil, de Produção, Química e Ambiental)','Física','Inteligência Artificial',
       'Jogos Digitais','Logística','Química','Sistemas para a Internet','Matemática'
