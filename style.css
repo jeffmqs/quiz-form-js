@@ -332,3 +332,7 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
     font-size: clamp(20px, 9vw, 28px); /* maior no celular */
   }
 }
+
+#screen-quiz #btnNext{
+  margin-top: 10px;   /* antes era ~24px */
+}
