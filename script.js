@@ -189,15 +189,33 @@ const btnNext     = document.getElementById('btnNext');
 const progressTxt = document.getElementById('progressText');
 const progressBar = document.getElementById('progressBar');
 
+/* === NOVO: embaralhamento estável por pergunta === */
+const shuffledOptions = {}; // step -> array de opções embaralhadas
+function shuffleArray(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function renderQuestion(){
   setErr('quiz','');
 
   const q = questions[step];
+
+  // cria a ordem embaralhada uma única vez por pergunta
+  if (!shuffledOptions[step]){
+    shuffledOptions[step] = shuffleArray(q.options);
+  }
+  const opts = shuffledOptions[step];
+
   qTitle.textContent = q.title;
 
   qOptions.innerHTML = '';
   const letters = ['A','B','C'];
-  q.options.forEach((opt, idx) => {
+  opts.forEach((opt, idx) => {
     const id = `opt-${step}-${idx}`;
     const wrap = document.createElement('label');
     wrap.className = 'option';
@@ -209,6 +227,7 @@ function renderQuestion(){
     qOptions.appendChild(wrap);
   });
 
+  // Restaura seleção, se já respondida
   if (answers[step]) {
     const val = answers[step];
     const optToSelect = Array.from(qOptions.querySelectorAll('label.option'))
@@ -408,6 +427,9 @@ function resetFlowForNewRun(){
   answers = [];
   scores  = {H:0,E:0,S:0};
   step    = 0;
+  // zera embaralhamentos para um novo fluxo
+  for (const k in shuffledOptions) delete shuffledOptions[k];
+
   const sendMsg = document.getElementById('sendMsg');
   if (sendMsg) sendMsg.textContent = '';
 }
