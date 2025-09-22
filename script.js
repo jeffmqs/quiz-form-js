@@ -232,7 +232,23 @@ qOptions.addEventListener('click', (e) => {
   label.classList.add('selected');
 });
 
-btnNext.addEventListener('click', () => {
+/* === helper de envio, reutilizando a mesma chamada do botão "Enviar" === */
+async function postToGAS(payload){
+  try{
+    const resp = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    return (resp.type === 'opaque' || resp.ok);
+  }catch(e){
+    console.error(e);
+    return false;
+  }
+}
+
+/* >>> envia no último OK e depois mostra o resultado <<< */
+btnNext.addEventListener('click', async () => {
   const chosen = document.querySelector('input[name="answer"]:checked');
   if (!chosen){
     setErr('quiz', 'Selecione uma opção para continuar.');
@@ -251,9 +267,36 @@ btnNext.addEventListener('click', () => {
     step++;
     renderQuestion();
   } else {
+    // Última pergunta: envia e então mostra o resultado
     const result = pickWinner(scores);
+
+    const oldLabel = btnNext.textContent;
+    btnNext.disabled = true;
+    btnNext.textContent = 'Enviando…';
+
+    const ok = await postToGAS({
+      ...signupData,
+      respostas: answers,
+      placar: scores,
+      perfil: result
+    });
+
+    btnNext.disabled = false;
+    btnNext.textContent = oldLabel;
+
+    // Renderiza e vai ao resultado
     renderResult(result);
     goTo('result');
+
+    // Mostra status e remove o botão "Enviar"
+    const sendMsg = document.getElementById('sendMsg');
+    const btnSendEl = document.getElementById('btnSend');
+    if (ok){
+      if (sendMsg){ sendMsg.style.color = '#1a7f37'; sendMsg.textContent = '✅ Concluído com sucesso!'; }
+    }else{
+      if (sendMsg){ sendMsg.style.color = '#b40000'; sendMsg.textContent = '⚠️ Não foi possível enviar automaticamente. Você pode tentar novamente pelo botão acima.'; }
+    }
+    if (btnSendEl){ btnSendEl.remove(); }
   }
 });
 
@@ -317,40 +360,48 @@ function renderResult(k){
 const btnSend = document.getElementById('btnSend');
 const sendMsg = document.getElementById('sendMsg');
 
-btnSend.addEventListener('click', async () => {
-  sendMsg.textContent = '';
-  btnSend.disabled = true;
-  btnSend.textContent = 'Enviando...';
+/* remove o botão “Enviar”, já que o envio ocorre no último OK */
+if (btnSend){ btnSend.remove(); }
 
-  const payload = {
-    ...signupData,
-    respostas: answers,
-    placar: scores,
-    perfil: finalProfile
-  };
+/* mantém a estrutura: só adiciona o listener se o botão existir */
+if (btnSend){
+  btnSend.addEventListener('click', async () => {
+    sendMsg.textContent = '';
+    btnSend.disabled = true;
+    btnSend.textContent = 'Enviando...';
 
-  try {
-    const resp = await fetch(GAS_URL, {
-  method: 'POST',
-  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-  body: JSON.stringify(payload)
-});
+    const payload = {
+      ...signupData,
+      respostas: answers,
+      placar: scores,
+      perfil: finalProfile
+    };
 
-    if (resp.type === 'opaque' || resp.ok) {
-      sendMsg.style.color = '#1a7f37';
-      sendMsg.textContent = '✅ Enviado com sucesso!';
-    } else {
-      throw new Error('Falha no envio');
+    try {
+      const resp = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+
+      if (resp.type === 'opaque' || resp.ok) {
+        sendMsg.style.color = '#1a7f37';
+        sendMsg.textContent = '✅ Concluído com sucesso!';
+      } else {
+        throw new Error('Falha no envio');
+      }
+    } catch (e) {
+      console.error(e);
+      sendMsg.style.color = '#b40000';
+      sendMsg.textContent = '⚠️ Não foi possível enviar. Tente novamente.';
+      btnSend.disabled = false;             // permite tentar de novo
+      btnSend.textContent = 'Enviar';
+      return;
     }
-  } catch (e) {
-    console.error(e);
-    sendMsg.style.color = '#b40000';
-    sendMsg.textContent = '⚠️ Não foi possível enviar. Tente novamente.';
-  } finally {
-    btnSend.disabled = false;
+
     btnSend.textContent = 'Enviar';
-  }
-});
+  });
+}
 
 /* =================== UTIL =================== */
 function resetFlowForNewRun(){

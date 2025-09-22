@@ -42,7 +42,7 @@ body{
 /* =================== INTRO =================== */
 #logo{
   max-width: none !important;   /* neutraliza limites antigos */
-  width: clamp(260px, 70vw, 300px);
+  width: clamp(260px, 70vw, 250px);
   height: auto;
   margin: 16px auto 24px;
 }
