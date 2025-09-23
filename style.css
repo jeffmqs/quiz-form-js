@@ -458,7 +458,7 @@ body:has(#screen-intro.active)::before{
   /* Garante que a seção de intro não fique escondida pela logo */
   #screen-intro {
     position: relative;   /* cria referência para o absolute */
-    padding-top: 80px;    /* dá espaço para o conteúdo não colar na logo */
+    padding-top: 140px;    /* dá espaço para o conteúdo não colar na logo */
   }
 }
 
