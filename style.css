@@ -469,8 +469,14 @@ body:has(#screen-intro.active)::before{
   margin: 24px auto;
 }
 
+/* Desktop */
 #introTitle.logo-evento img {
-  max-width: 100%;
-  height: auto;
-  width: clamp(200px, 70vw, 400px); /* ajusta para desktop e mobile */
+  width: clamp(200px, 60vw, 280px);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  #introTitle.logo-evento img {
+    width: 200px;  /* tamanho fixo no mobile */
+  }
 }
