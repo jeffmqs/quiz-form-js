@@ -305,7 +305,7 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
 
 @media (max-width: 600px){
   #logo{
-    width: clamp(160px, 50vw, 200px); /* antes 300–460px */
+    width: clamp(160px, 50vw, 250px); /* antes 300–460px */
   }
 }
 
@@ -461,4 +461,5 @@ body:has(#screen-intro.active)::before{
     padding-top: 160px;    /* dá espaço para o conteúdo não colar na logo */
   }
 }
+
 
