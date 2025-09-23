@@ -462,4 +462,15 @@ body:has(#screen-intro.active)::before{
   }
 }
 
+/* Centralizar a logo do evento no lugar do título */
+#introTitle.logo-evento {
+  display: flex;
+  justify-content: center;
+  margin: 24px auto;
+}
 
+#introTitle.logo-evento img {
+  max-width: 100%;
+  height: auto;
+  width: clamp(200px, 70vw, 400px); /* ajusta para desktop e mobile */
+}
