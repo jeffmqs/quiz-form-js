@@ -447,7 +447,7 @@ body:has(#screen-intro.active)::before{
   #logo {
    display: block;
     margin-left: auto;   /* mantém puxada para a direita */
-    margin-right: 80px;  /* afasta um pouco da borda direita */
+    margin-right: 100px;  /* afasta um pouco da borda direita */
     margin-top: 4px;     /* sobe mais para cima (era 16px) */
     margin-bottom: 20px; /* opcional: ajusta o espaço abaixo */
     width: clamp(140px, 42vw, 180px); /* garante que continue menor no mobile */
