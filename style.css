@@ -432,5 +432,14 @@ body:has(#screen-intro.active)::before{
   padding-inline: clamp(16px, 6vw, 64px);
 }
 
+#introTitle br {
+  display: none;
+}
 
+/* No mobile, ativa a quebra de linha */
+@media (max-width: 600px) {
+  #introTitle br {
+    display: inline;
+  }
+}
 
