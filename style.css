@@ -445,9 +445,12 @@ body:has(#screen-intro.active)::before{
 
 @media (max-width: 600px) {
   #logo {
-    display: block;            /* garante que respeite margin */
-    margin-left: auto;         /* empurra para a direita */
-    margin-right: 0;           /* evita centralização */
+   display: block;
+    margin-left: auto;   /* mantém puxada para a direita */
+    margin-right: 80px;  /* afasta um pouco da borda direita */
+    margin-top: 4px;     /* sobe mais para cima (era 16px) */
+    margin-bottom: 20px; /* opcional: ajusta o espaço abaixo */
+    width: clamp(140px, 42vw, 180px); /* garante que continue menor no mobile */
   }
 }
 
