@@ -8,7 +8,7 @@
   --radius: 18px;
   --gap: 20px;
   --fs-base: clamp(16px, 2.6vh + 0.4vw, 20px);
-  --footer-h: 52px;
+  --footer-h: 35px;
 }
 
 *{ box-sizing: border-box; }
@@ -61,6 +61,7 @@ body{
   font-weight: 800;
   margin-top: 24px;
   margin-bottom: 24px;
+  color: #FFFFFF;
 }
 #screen-intro .lead{
   color: var(--muted);
@@ -68,6 +69,7 @@ body{
   line-height: 1.6;
   max-width: 70ch;
   margin: 0 auto 60px;
+  color: #FFFFFF;
 }
 
 /* =================== BOTÕES (base) =================== */
@@ -77,7 +79,7 @@ body{
   border: 0;
   border-radius: 999px;
   padding: 14px 22px;
-  font-weight: 700;
+  font-weight: 600;
   min-height: 50px;
   min-width: 160px;
 }
@@ -276,7 +278,7 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
   padding: 0 12px;
   z-index: 10;
 }
-#app-footer p{ margin:0; color:#777; font-size:.80em; }
+#app-footer p{ margin:0; color: #000000; font-size:.70em; }
 
 @media (max-width: 600px){
   #app-footer p{ font-size: .65em; }
@@ -374,3 +376,61 @@ input:focus{ outline:none; border-bottom-color: var(--brand-dark); }
     line-height: 1.25;
   }
 }
+
+/* =================== BG INTRO =================== */
+#screen-intro {
+  background: url("./bg_voce_futuro-08.jpg") no-repeat center center;
+  background-size: cover;
+  border-radius: var(--radius);
+}
+
+/* Versão Mobile */
+@media (max-width: 600px) {
+  #screen-intro {
+    background: url("./bg_voce_futuro-07.jpg") no-repeat center center;
+    background-size: cover;
+  }
+}
+
+/* ===== Reset da intro (garante que não fique expandida) ===== */
+#screen-intro{
+  margin: 0;                /* volta ao normal */
+  width: min(960px, 100%);  /* segue a mesma largura das demais telas */
+  border-radius: var(--radius);
+  background: transparent;  /* o bg agora vai no body */
+}
+
+/* ===== Fundo full-bleed só quando a intro estiver ativa ===== */
+body{
+  background: #ffffff; /* padrão para as outras telas */
+}
+
+/* Desktop: aplica o BG enquanto #screen-intro estiver ativo */
+body:has(#screen-intro.active){
+  background: url("./bg_voce_futuro-06.jpg") center/cover no-repeat fixed;
+}
+
+/* Mobile: troca a imagem */
+@media (max-width: 600px){
+  body:has(#screen-intro.active){
+    background-image: url("./bg_voce_futuro-05.jpg");
+  }
+}
+
+/* Overlay sutil para legibilidade do texto na intro */
+body:has(#screen-intro.active)::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.28));
+  pointer-events: none;
+}
+
+/* Dá um respiro interno na intro sem empurrar o layout */
+#screen-intro{
+  padding-block: clamp(24px, 8vh, 96px);
+  padding-inline: clamp(16px, 6vw, 64px);
+}
+
+
+
