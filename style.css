@@ -450,40 +450,21 @@ body:has(#screen-intro.active)::before{
   }
 }
 
-/* Travar o BG só no mobile enquanto a intro estiver ativa */
-@media (max-width: 600px){
-  /* Tira o bg do body nessa fase (vamos usar o ::before fixo) */
-  body:has(#screen-intro.active){
-    background: none !important;
-    position: relative; /* cria contexto p/ o ::before */
+/* =================== LOGO COMO CABEÇALHO NO MOBILE =================== */
+@media (max-width: 600px) {
+  #logo {
+    position: absolute;   /* tira do fluxo normal */
+    top: 12px;            /* distância do topo */
+    right: 12px;          /* distância da direita */
+    width: 120px;         /* ajusta o tamanho p/ cabeçalho */
+    height: auto;
+    margin: 0;            /* remove as margens automáticas */
   }
 
-  /* BG fixo ocupando a tela toda */
-  body:has(#screen-intro.active)::before{
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("./bg_voce_futuro-05.jpg") center/cover no-repeat;
-    pointer-events: none;
-    z-index: -1; /* fica por trás do conteúdo */
-    will-change: transform; /* melhora desempenho no mobile */
-  }
-
-  /* Mantém a sobreposição para legibilidade (opcional) */
-  body:has(#screen-intro.active)::after{
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,.14), rgba(0,0,0,.28));
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Garante que o app fique acima do BG fixo/overlay */
-  #app{
-    position: relative;
-    z-index: 1;
+  /* Garante que a seção de intro não fique escondida pela logo */
+  #screen-intro {
+    position: relative;   /* cria referência para o absolute */
+    padding-top: 80px;    /* dá espaço para o conteúdo não colar na logo */
   }
 }
-
 
