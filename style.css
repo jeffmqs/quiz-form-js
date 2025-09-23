@@ -443,3 +443,11 @@ body:has(#screen-intro.active)::before{
   }
 }
 
+@media (max-width: 600px) {
+  #logo {
+    display: block;            /* garante que respeite margin */
+    margin-left: auto;         /* empurra para a direita */
+    margin-right: 0;           /* evita centralização */
+  }
+}
+
