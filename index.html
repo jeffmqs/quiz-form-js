@@ -18,8 +18,8 @@
       <img id="logo" src="./marca_unicap_2022_bca.svg" alt="Logomarca Unicap" />
       <div class="intro-content">
         <div id="introTitle" class="logo-evento">
-  <img src="./logo_evento.png" alt="O Futuro Espera por Você" />
-</div>
+          <img src="./logo_evento.png" alt="O Futuro Espera por Você" />
+        </div>
         <p class="lead">
           Você tem talentos únicos, sonhos que valem a pena e um futuro esperando para ser
           construído por você. Responda a 10 perguntas rápidas e viva uma experiência
@@ -60,6 +60,25 @@
           <label for="serie">Série <span class="req">*</span></label>
           <input id="serie" name="serie" type="text" required placeholder="Ex.: 2º ano do Ensino Médio" />
           <small class="error" data-for="serie"></small>
+        </div>
+
+        <!-- CONSENTIMENTO LGPD (adicionado logo abaixo de “Série”) -->
+        <div class="field consent">
+          <label class="consent-label">
+            <input id="consent" name="consent" type="checkbox" required />
+            <span>
+              Li e concordo com o tratamento dos meus dados pessoais pela Unicap, para
+              fins de contato sobre cursos e ações institucionais, conforme a
+              <a href="https://portal.unicap.br/w/politica-de-privacidade" target="_blank" rel="noopener noreferrer">
+                Política de Privacidade
+              </a>
+              e a LGPD (Lei 13.709/2018).
+            </span>
+          </label>
+          <small class="hint">
+            Você pode revogar o consentimento a qualquer momento pelos canais da Unicap.
+          </small>
+          <small class="error" data-for="consent"></small>
         </div>
 
         <button id="btnToQuiz" class="btn primary" type="submit">OK</button>

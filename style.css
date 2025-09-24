@@ -443,7 +443,6 @@ body:has(#screen-intro.active)::before{
   }
 }
 
-
 /* =================== LOGO COMO CABEÇALHO NO MOBILE =================== */
 @media (max-width: 600px) {
   #logo {
@@ -480,3 +479,24 @@ body:has(#screen-intro.active)::before{
     width: 200px;  /* tamanho fixo no mobile */
   }
 }
+
+/* ===== Consentimento (LGPD) ===== */
+.field.consent { display: grid; gap: 8px; }
+.consent-label { display: flex; align-items: flex-start; gap: 10px; line-height: 1.45; }
+.consent-label input[type="checkbox"] { margin-top: 3px; transform: scale(1.1); }
+.field.consent a { color: var(--brand); text-decoration: underline; }
+.field.consent .hint { color: #777; font-size: .85em; }
+
+/* Ajuste de tamanhos só no desktop */
+@media (min-width: 601px) {
+  /* Logo da Unicap */
+  #logo {
+    width: 180px;   /* antes clamp(...) → agora menor */
+  }
+
+  /* Logo do evento "Você no Futuro" */
+  #introTitle.logo-evento img {
+    width: 220px;   /* antes chegava até 280px → agora fixo menor */
+  }
+}
+

@@ -1,5 +1,5 @@
 /* =================== CONFIG =================== */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbwGOqiomLIfhQmdfFldyrlKrCz4HXcM698pWP33xQfp1XL9BeQp_SYvli315U4hzCQU7A/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbzLyUA0qYb-J_FANJ8wxYK_lL9mKrSHGJkRX7Fdfe78Goplb_6X8MgnFdJn-L5sfBGSaw/exec';
 
 /* =================== REFERÊNCIAS DE TELAS =================== */
 const scrIntro  = document.getElementById('screen-intro');
@@ -60,7 +60,8 @@ const setErr = (name, msg) => {
   const el = document.querySelector(`.error[data-for="${name}"]`);
   if (el) el.textContent = msg || '';
 };
-function clearFormErrors(){ ['nome','telefone','escola','serie','quiz'].forEach(n => setErr(n,'')); }
+// ADIÇÃO: incluir 'consent' no limpa-erros (mantendo estrutura)
+function clearFormErrors(){ ['nome','telefone','escola','serie','quiz','consent'].forEach(n => setErr(n,'')); }
 
 let signupData = {};
 
@@ -107,9 +108,30 @@ formSignup.addEventListener('submit', (e) => {
   if (!data.escola || data.escola.trim().length < 2) { setErr('escola', 'Informe sua escola.'); ok=false; }
   if (!data.serie  || data.serie.trim().length < 1) { setErr('serie', 'Informe sua série.'); ok=false; }
 
+  // ADIÇÃO: validação do consentimento LGPD
+  const consentEl = document.getElementById('consent');
+  const consentGiven = !!consentEl?.checked;
+  if (!consentGiven){
+    setErr('consent', 'Para continuar, é necessário aceitar o tratamento de dados (LGPD).');
+    ok = false;
+  }
+
+  // Metadados do consentimento
+  const CONSENT_TEXT_VERSION = 'v1.0 (2025-09-24)'; // atualize se alterar o texto do label
+  const consentAtISO = new Date().toISOString();
+  const userAgent = navigator.userAgent || '';
+
   if (!ok) return;
 
-  signupData = { ...data, telefone: tel };
+  // ADIÇÃO: incluir campos de consentimento no objeto existente
+  signupData = {
+    ...data,
+    telefone: tel,
+    consent: consentGiven,
+    consent_at: consentAtISO,
+    consent_text_version: CONSENT_TEXT_VERSION,
+    user_agent: userAgent
+  };
   goTo('quiz');
   step = 0;
   renderQuestion();
