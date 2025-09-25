@@ -82,6 +82,8 @@ body{
   font-weight: 600;
   min-height: 50px;
   min-width: 160px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700; /* Bold */
 }
 .btn.primary{ background: var(--brand); color:#fff; }
 .btn.primary:hover{ background: var(--brand-dark); }
@@ -485,7 +487,10 @@ body:has(#screen-intro.active)::before{
 .consent-label { display: flex; align-items: flex-start; gap: 10px; line-height: 1.45; }
 .consent-label input[type="checkbox"] { margin-top: 3px; transform: scale(1.1); }
 .field.consent a { color: var(--brand); text-decoration: underline; }
-.field.consent .hint { color: #777; font-size: .85em; }
+.field.consent span {
+  font-size: 0.85em; 
+  line-height: 1.4;
+}
 
 /* Ajuste de tamanhos só no desktop */
 @media (min-width: 601px) {
@@ -499,4 +504,46 @@ body:has(#screen-intro.active)::before{
     width: 220px;   /* antes chegava até 280px → agora fixo menor */
   }
 }
+
+/* Mobile: reduzir o texto da LGPD, independente do --fs-base */
+@media (max-width: 600px) {
+  /* aumenta a especificidade pra vencer regras anteriores */
+  #screen-signup .field.consent .consent-label > span {
+    /* usa clamp em px/vw/px para não herdar o root */
+    font-size: clamp(12px, 3.5vw, 14px);
+    line-height: 1.4;
+  }
+
+  #screen-signup .field.consent .hint {
+    font-size: clamp(11px, 3.2vw, 13px);
+    line-height: 1.35;
+  }
+}
+
+/* ==== OVERRIDE: botões menores (desktop) ==== */
+#app #btnStart.btn,
+#app #btnToQuiz.btn,
+#app #btnNext.btn,
+#app #btnSend.btn{
+  padding: 9px 16px;   /* antes 12–14 x 20–24 */
+  min-height: 40px;    /* antes 46–50 */
+  min-width: 140px;    /* antes 150–180 */
+  font-size: 0.95em;   /* antes ~1.0–1.05em */
+  border-radius: 21px; /* antes 999px */
+}
+
+/* ==== OVERRIDE: botões menores (mobile) ==== */
+@media (max-width: 600px){
+  #app #btnStart.btn,
+  #app #btnToQuiz.btn,
+  #app #btnNext.btn,
+  #app #btnSend.btn{
+    padding: 8px 14px;
+    min-height: 36px;
+    min-width: 120px;
+    font-size: 0.9em;
+    border-radius: 21px;
+  }
+}
+
 
