@@ -546,4 +546,59 @@ body:has(#screen-intro.active)::before{
   }
 }
 
+/* =================== TOTEM MODE =================== */
+body.totem #btnStart,
+body.totem #btnToQuiz,
+body.totem #btnNext,
+body.totem #btnSend{
+  font-size: 1em;
+  padding: 11px 20px;
+  min-width: 150px;
+  min-height: 44px;
+  margin-top: 12px;
+  border-radius: 12px; /* cantos mais discretos */
+}
+
+/* Logo Unicap no cabeçalho */
+body.totem #logo{
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 120px;
+  height: auto;
+  margin: 0;
+}
+body.totem #screen-intro{
+  position: relative;
+  padding-top: 160px; /* espaço pro conteúdo não colar na logo */
+}
+
+/* Logo do evento “Você no Futuro” (usa tamanho de mobile) */
+body.totem #introTitle.logo-evento img{
+  width: 200px;
+}
+
+/* Texto LGPD menor (como no mobile) */
+body.totem #screen-signup .field.consent .consent-label > span{
+  font-size: clamp(12px, 3.5vw, 14px);
+  line-height: 1.4;
+}
+body.totem #screen-signup .field.consent .hint{
+  font-size: clamp(11px, 3.2vw, 13px);
+  line-height: 1.35;
+}
+
+/* Fundo da intro: usa a imagem mobile no totem também */
+body.totem:has(#screen-intro.active){
+  background-image: url("./bg_voce_futuro-05.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Tipografia geral um pouco menor (opcional) */
+body.totem{
+  --fs-base: clamp(16px, 2.6vh + 0.4vw, 19px);
+}
+
 
