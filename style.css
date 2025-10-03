@@ -601,4 +601,70 @@ body.totem{
   --fs-base: clamp(16px, 2.6vh + 0.4vw, 19px);
 }
 
+/* =================== TOTEM: Intro proporcional e maior =================== */
+/* Aumenta tipografia e logos só na INTRO quando estiver no modo totem */
+body.totem #screen-intro {
+  /* mais respiro vertical para a intro no totem */
+  padding-block: clamp(40px, 10vh, 160px);
+}
+
+/* Logo Unicap (canto superior) proporcional à largura da tela */
+body.totem #screen-intro #logo{
+  width: clamp(90px, 9vw, 140px);  /* antes 120px fixos */
+}
+
+/* Logo do evento “Você no Futuro” maior e responsivo */
+body.totem #screen-intro #introTitle.logo-evento img{
+  width: clamp(220px, 28vw, 420px);  /* cresce com a tela do totem */
+}
+
+/* Texto de chamada (lead) maior e proporcional; mantém boa largura de leitura */
+body.totem #screen-intro .lead{
+  font-size: clamp(18px, 2.2vh + 1.6vw, 30px); /* “letras gigantes”, mas controladas */
+  line-height: 1.55;
+  max-width: min(90ch, 86%);    /* um pouco mais largo no totem, sem virar um parágrafo comprido demais */
+  margin-bottom: clamp(20px, 4vh, 40px);
+}
+
+/* Botão “Iniciar” um pouco maior e proporcional na intro */
+body.totem #screen-intro #btnStart{
+  font-size: clamp(14px, 1.2vh + 0.9vw, 20px);
+  padding: clamp(10px, 1.2vh + 0.6vw, 16px) clamp(16px, 1.8vh + 1.2vw, 28px);
+  min-height: clamp(40px, 5.2vh, 56px);
+  border-radius: 14px; /* combina com seu radius menor */
+}
+
+/* =================== TOTEM: Intro ainda maior =================== */
+body.totem #screen-intro {
+  padding-block: clamp(60px, 12vh, 200px); /* mais respiro vertical */
+}
+
+/* Logo Unicap no topo maior */
+body.totem #screen-intro #logo {
+  width: clamp(120px, 12vw, 200px); /* antes 90–140px */
+}
+
+/* Logo do evento “Você no Futuro” bem maior */
+body.totem #screen-intro #introTitle.logo-evento img {
+  width: clamp(280px, 35vw, 520px); /* sobe bastante */
+}
+
+/* Texto de chamada mais destacado */
+body.totem #screen-intro .lead {
+  font-size: clamp(22px, 2.5vh + 2vw, 36px);
+  line-height: 1.6;
+  max-width: min(95ch, 90%);
+  margin-bottom: clamp(24px, 5vh, 48px);
+  font-weight: 600;
+}
+
+/* Botão “Iniciar” proporcional */
+body.totem #screen-intro #btnStart {
+  font-size: clamp(16px, 1.5vh + 1vw, 22px);
+  padding: clamp(12px, 1.4vh + 0.8vw, 18px) clamp(20px, 2vh + 1.5vw, 32px);
+  min-height: clamp(46px, 6vh, 64px);
+  border-radius: 14px;
+}
+
+
 
