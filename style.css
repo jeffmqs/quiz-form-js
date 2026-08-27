@@ -210,3 +210,68 @@ body.totem #screen-intro #btnStart{
   min-width: 170px;
 }
 
+/* =============== FORMULÁRIO RBS =============== */
+
+#screen-signup {
+  width: min(1100px, 100%);
+}
+
+.iframe-container {
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 18px;
+}
+
+.iframe-container iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+#btnContinuarQuiz {
+  display: block;
+  margin: 24px auto 0;
+}
+
+@media (max-width: 599px) {
+
+  #screen-signup {
+    padding: 12px;
+  }
+
+  .iframe-container {
+    height: 75vh;
+    min-height: 600px;
+    border-radius: 10px;
+  }
+}
+
+.iframe-container {
+  width: 100%;
+  height: 620px;
+  overflow: auto;
+  background: #fff;
+}
+
+.iframe-container iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.continuar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 30px;
+}
+
+#btnContinuarQuiz {
+  display: block;
+  margin: 0 auto;
+}
+

@@ -44,194 +44,20 @@ function onBack(){
   goTo('intro');
 }
 
-/* =================== FORM / CADASTRO =================== */
-const formSignup = document.getElementById('form-signup');
+/* =================== FORMULÁRIO RBS =================== */
+
+let signupData = {};
+
 const setErr = (name, msg) => {
   const el = document.querySelector(`.error[data-for="${name}"]`);
   if (el) el.textContent = msg || '';
 };
-function clearFormErrors(){
-  ['eduPath','escola','serie','instituicao','collegeStatus','curso','periodo','cursoConcluido','anoConclusao','tipoPos','cursoPos','situacaoPos','anoConclusaoPos','nome','telefone','consent','quiz'].forEach(n => setErr(n,''));
-}
-let signupData = {};
 
-/* ===== Toggle dos grupos ===== */
-const eduPathRadios = Array.from(document.querySelectorAll('input[name="eduPath"]'));
-const grpSchool     = document.querySelector('[data-group="school"]');
-const grpCollege    = document.querySelector('[data-group="college"]');
-const collegeStatus = document.getElementById('collegeStatus');
-const subCursando   = document.querySelector('[data-sub="cursando"]');
-const subGraduado   = document.querySelector('[data-sub="graduado"]');
-const subPos        = document.querySelector('[data-sub="pos"]');
-const posYearWrap   = document.querySelector('[data-pos="ano"]');
-const situacaoPos   = document.getElementById('situacaoPos');
+const btnContinuarQuiz = document.getElementById('btnContinuarQuiz');
 
-function toggleEduPath(val){
-  grpSchool.classList.add('hidden');
-  grpCollege.classList.add('hidden');
-  if (val === 'school') grpSchool.classList.remove('hidden');
-  if (val === 'college') grpCollege.classList.remove('hidden');
-}
-function toggleCollegeSub(val){
-  [subCursando, subGraduado, subPos].forEach(el => el.classList.add('hidden'));
-  if (val === 'cursando') subCursando.classList.remove('hidden');
-  if (val === 'graduado') subGraduado.classList.remove('hidden');
-  if (val === 'pos')      subPos.classList.remove('hidden');
-}
-eduPathRadios.forEach(r => r.addEventListener('change', e => toggleEduPath(e.target.value)));
-collegeStatus.addEventListener('change', e => toggleCollegeSub(e.target.value));
-situacaoPos?.addEventListener('change', e => {
-  if (e.target.value === 'concluida') posYearWrap.classList.remove('hidden');
-  else posYearWrap.classList.add('hidden');
-});
-
-/* ===== Helpers de validação ===== */
-const onlyDigits = s => (s || '').replace(/\D+/g, '');
-function isAllSame(str){ return /^(\d)\1+$/.test(str); }
-function isSequentialAsc(str){
-  if (str.length < 3) return false;
-  for (let i=1;i<str.length;i++){ if ((Number(str[i-1])+1)%10 !== Number(str[i])) return false; }
-  return true;
-}
-function isSequentialDesc(str){
-  if (str.length < 3) return false;
-  for (let i=1;i<str.length;i++){ if ((Number(str[i-1])+9)%10 !== Number(str[i])) return false; }
-  return true;
-}
-// DDDs válidos no Brasil
-const DDD_VALIDOS = new Set(['11','12','13','14','15','16','17','18','19','21','22','24','27','28','31','32','33','34','35','37','38','41','42','43','44','45','46','47','48','49','51','53','54','55','61','62','63','64','65','66','67','68','69','71','73','74','75','77','79','81','82','83','84','85','86','87','88','89','91','92','93','94','95','96','97','98','99']);
-
-function isValidPhoneBR(telDigits){
-  if (telDigits.length !== 11) return false;
-  const ddd = telDigits.slice(0,2);
-  if (!DDD_VALIDOS.has(ddd)) return false;
-  if (isAllSame(telDigits)) return false;
-  if (isSequentialAsc(telDigits) || isSequentialDesc(telDigits)) return false;
-  return true;
-}
-
-// nomes (sem abreviações), exigem palavras inteiras
-const FORBID_ABBR = /\b(col\.|esc\.|inst\.|univ\.|fac\.|cent\.)\b/i;
-const SCHOOL_PREFIX = /^(col[eé]gio|escola|instituto|centro|liceu)\b/i;
-const COLLEGE_PREFIX = /^(universidade|faculdade|centro universit[aá]rio|instituto)\b/i;
-function isValidSchoolName(s){
-  const t = (s||'').trim().replace(/\s+/g,' ');
-  if (!SCHOOL_PREFIX.test(t)) return false;
-  if (FORBID_ABBR.test(t)) return false;
-  return t.split(' ').filter(w=>w.length>=3).length>=2;
-}
-function isValidInstitutionName(s){
-  const t = (s||'').trim().replace(/\s+/g,' ');
-  if (!COLLEGE_PREFIX.test(t)) return false;
-  if (FORBID_ABBR.test(t)) return false;
-  return t.split(' ').filter(w=>w.length>=3).length>=2;
-}
-function isValidCourseName(s){
-  const t=(s||'').trim();
-  return t.length>=3 && /[a-z]/i.test(t);
-}
-
-/* ===== Submit ===== */
-formSignup.addEventListener('submit', (e) => {
-  e.preventDefault();
-  clearFormErrors();
-
-  const data = Object.fromEntries(new FormData(formSignup).entries());
-  let ok = true;
-
-  // path
-  const eduPath = data.eduPath;
-  if (!eduPath){ setErr('eduPath','Selecione uma opção.'); ok=false; }
-
-  if (eduPath === 'school'){
-    if (!isValidSchoolName(data.escola)){
-      setErr('escola','Digite o nome completo da escola (sem abreviações).');
-      ok=false;
-    }
-    if (!data.serie){ setErr('serie','Selecione sua série.'); ok=false; }
-  }
-
-  if (eduPath === 'college'){
-    if (!isValidInstitutionName(data.instituicao)){
-      setErr('instituicao','Informe o nome completo da faculdade (sem abreviações).');
-      ok=false;
-    }
-    if (!data.collegeStatus){
-      setErr('collegeStatus','Selecione sua situação.'); ok=false;
-    } else if (data.collegeStatus === 'cursando'){
-      if (!isValidCourseName(data.curso)){ setErr('curso','Informe o curso.'); ok=false; }
-      if (!data.periodo){ setErr('periodo','Selecione o período/semestre.'); ok=false; }
-    } else if (data.collegeStatus === 'graduado'){
-      if (!isValidCourseName(data.cursoConcluido)){ setErr('cursoConcluido','Informe o curso.'); ok=false; }
-      const y = Number((data.anoConclusao||'').trim()); const Y = new Date().getFullYear();
-      if (!y || y<1980 || y>Y){ setErr('anoConclusao',`Ano inválido. Use 1980–${Y}.`); ok=false; }
-    } else if (data.collegeStatus === 'pos'){
-      if (!data.tipoPos){ setErr('tipoPos','Selecione o tipo da pós.'); ok=false; }
-      if (!isValidCourseName(data.cursoPos)){ setErr('cursoPos','Informe o curso da pós.'); ok=false; }
-      if (!data.situacaoPos){ setErr('situacaoPos','Selecione a situação.'); ok=false; }
-      if (data.situacaoPos === 'concluida'){
-        const y = Number((data.anoConclusaoPos||'').trim()); const Y = new Date().getFullYear();
-        if (!y || y<1980 || y>Y){ setErr('anoConclusaoPos',`Ano inválido. Use 1980–${Y}.`); ok=false; }
-      }
-    }
-  }
-
-  // Nome
-  if (!data.nome || data.nome.trim().length < 3){
-    setErr('nome','Informe seu nome completo.'); ok=false;
-  }
-
-  // Telefone
-  const tel = onlyDigits(data.telefone);
-  if (!isValidPhoneBR(tel)){
-    setErr('telefone','Informe um telefone válido com DDD (11 dígitos).'); ok=false;
-  }
-
-  // Consent
-  const consentGiven = !!document.getElementById('consent')?.checked;
-  if (!consentGiven){ setErr('consent','Para continuar, é necessário aceitar o tratamento de dados (LGPD).'); ok=false; }
-
-  if (!ok) return;
-
-  // Metadados LGPD
-  const CONSENT_TEXT_VERSION = 'v1.0 (2025-10-14)';
-  const consentAtISO = new Date().toISOString();
-  const userAgent = navigator.userAgent || '';
-
-  // Educational object
-  let educational = { path: eduPath };
-  if (eduPath === 'school'){
-    educational = { path:'school', escola: data.escola.trim(), serie: data.serie.trim() };
-  } else if (eduPath === 'college'){
-    if (data.collegeStatus === 'cursando'){
-      educational = { path:'college', status:'cursando', instituicao: data.instituicao.trim(), curso: data.curso.trim(), periodo: data.periodo.trim() };
-    } else if (data.collegeStatus === 'graduado'){
-      educational = { path:'college', status:'graduado', instituicao: data.instituicao.trim(), curso: data.cursoConcluido.trim(), ano_conclusao: Number(data.anoConclusao) };
-    } else if (data.collegeStatus === 'pos'){
-      educational = {
-        path:'college', status:'pos',
-        instituicao: data.instituicao.trim(),
-        tipo_pos: data.tipoPos.trim(),
-        curso_pos: data.cursoPos.trim(),
-        situacao_pos: data.situacaoPos,
-        ...(data.situacaoPos === 'concluida' ? { ano_conclusao_pos: Number(data.anoConclusaoPos) } : {})
-      };
-    }
-  }
-
-  // guarda dados para envio final
-  signupData = {
-    nome: data.nome.trim(),
-    telefone: tel,
-    consent: consentGiven,
-    consent_at: consentAtISO,
-    consent_text_version: CONSENT_TEXT_VERSION,
-    user_agent: userAgent,
-    educational
-  };
-
-  goTo('quiz');
+btnContinuarQuiz.addEventListener('click', () => {
   step = 0;
+  goTo('quiz');
   renderQuestion();
 });
 
@@ -515,24 +341,36 @@ function renderResult(k){
 /* =================== UTIL =================== */
 function resetFlowForNewRun(){
   answers = [];
-  scores  = {H:0,E:0,S:0};
-  step    = 0;
-  for (const k in shuffledOptions) delete shuffledOptions[k];
-  const sendMsg = document.getElementById('sendMsg');
-  if (sendMsg) sendMsg.textContent = '';
+  scores = { H:0, E:0, S:0 };
+  step = 0;
 
-  // limpa seleção do cadastro
-  eduPathRadios.forEach(r=> r.checked=false);
-  toggleEduPath('');
-  collegeStatus.value='';
-  toggleCollegeSub('');
-  posYearWrap?.classList.add('hidden');
+  for (const k in shuffledOptions) {
+    delete shuffledOptions[k];
+  }
+
+  const sendMsg = document.getElementById('sendMsg');
+
+  if (sendMsg) {
+    sendMsg.textContent = '';
+  }
 }
 
 /* ====== UX extras ====== */
-// Enter para enviar nos passos certos
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Enter') return;
-  if (scrSign.classList.contains('active')){ e.preventDefault(); document.getElementById('btnToQuiz').click(); }
-  else if (scrQuiz.classList.contains('active')){ e.preventDefault(); document.getElementById('btnNext').click(); }
+
+  if (scrQuiz.classList.contains('active')) {
+    e.preventDefault();
+    document.getElementById('btnNext').click();
+  }
 });
+
+/* =================== LINK DIRETO PARA O QUIZ =================== */
+
+const params = new URLSearchParams(window.location.search);
+
+if (params.get('etapa') === 'quiz') {
+  step = 0;
+  goTo('quiz');
+  renderQuestion();
+}
