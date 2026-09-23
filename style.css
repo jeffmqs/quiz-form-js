@@ -287,3 +287,42 @@ body.totem #screen-intro #btnStart{
   margin: 0 auto;
 }
 
+@media (max-width: 599px) {
+
+  body:has(#screen-intro.active) {
+    background-image: url("./images/tela-mobile.jpeg");
+    background-attachment: scroll;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  #screen-intro {
+    min-height: 100svh;
+    height: auto;
+    padding: 35px 24px 45px;
+    box-sizing: border-box;
+  }
+
+  #screen-intro .intro-content {
+    padding-top: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #screen-intro .logo-evento img {
+    width: min(330px, 82vw);
+    height: auto;
+  }
+
+  #screen-intro .lead {
+    font-size: 22px;
+    line-height: 1.45;
+    max-width: 600px;
+    margin: 45px auto 35px;
+  }
+
+  #screen-intro #btnStart {
+    margin: 0 auto;
+  }
+}
