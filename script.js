@@ -53,14 +53,6 @@ const setErr = (name, msg) => {
   if (el) el.textContent = msg || '';
 };
 
-const btnContinuarQuiz = document.getElementById('btnContinuarQuiz');
-
-btnContinuarQuiz.addEventListener('click', () => {
-  step = 0;
-  goTo('quiz');
-  renderQuestion();
-});
-
 /* =================== QUIZ =================== */
 const questions = [
   { title: 'Quando você pensa no seu futuro, o que mais te motiva?',
