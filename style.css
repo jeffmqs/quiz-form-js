@@ -291,83 +291,44 @@ body.totem #screen-intro #btnStart{
 
   body:has(#screen-intro.active) {
     background-image: url("./images/tela-mobile.jpeg");
-    background-attachment: scroll;
     background-position: center top;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
-  #screen-intro {
-    min-height: 100svh;
+  #screen-intro.active {
+    min-height: calc(100dvh - var(--footer-h));
     height: auto;
-    padding: 35px 24px 45px;
-    box-sizing: border-box;
+    padding: 120px 20px 45px;
+    justify-content: flex-start;
   }
 
   #screen-intro .intro-content {
-    padding-top: 0;
     width: 100%;
-    max-width: 100%;
-  }
-
-  #screen-intro .logo-evento img {
-    width: min(330px, 82vw);
-    height: auto;
-  }
-
-  #screen-intro .lead {
-    font-size: 22px;
-    line-height: 1.45;
-    max-width: 600px;
-    margin: 45px auto 35px;
-  }
-
-  #screen-intro #btnStart {
+    max-width: 400px;
     margin: 0 auto;
-  }
-}
-
-@media (max-width: 599px) {
-
-  body:has(#screen-intro.active) {
-    background-image: url("./images/tela-mobile.jpeg");
-    background-attachment: scroll;
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  #screen-intro {
-    min-height: 100svh;
-    height: auto;
-    padding: 25px 20px 35px;
-    box-sizing: border-box;
-  }
-
-  #screen-intro .intro-content {
-    width: 100%;
-    max-width: 100%;
     padding: 0;
+  }
+
+  #introTitle.logo-evento {
+    margin: 60px auto 35px;
+  }
+
+  #introTitle.logo-evento img {
+    display: block;
+    width: 200px;
+    max-width: 65vw;
+    height: auto;
     margin: 0 auto;
   }
 
-  #screen-intro .logo-evento {
-    margin: 0 auto 25px;
-  }
-
-  #screen-intro .logo-evento img {
-    width: 70vw;
-    max-width: 280px;
-    height: auto;
-  }
-
-  #screen-intro .lead {
+  body.totem #screen-intro .lead {
     width: 100%;
     max-width: 360px;
-    margin: 20px auto 25px;
+    margin: 0 auto 30px;
     font-size: 18px;
-    line-height: 1.45;
-    text-align: center;
+    line-height: 1.5;
   }
 
   #screen-intro #btnStart {
