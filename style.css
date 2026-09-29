@@ -363,3 +363,47 @@ iframe-container {
     min-height: 1050px !important;
   }
 }
+
+/* ===== AJUSTES CADASTRO MOBILE ===== */
+@media (max-width: 599px) {
+
+  /* Reduz a altura do formulário */
+  #screen-signup .iframe-container,
+  #screen-signup .iframe-container iframe {
+    height: 950px !important;
+    min-height: 950px !important;
+  }
+
+  /* Organiza seta + Cadastro */
+  #screen-signup .formHeader {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Área clicável da seta */
+  #screen-signup .formHeader .btn.ghost {
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* A SETA propriamente dita */
+  #screen-signup .formHeader .btn.ghost::before {
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  /* Mantém Cadastro alinhado com a seta */
+  #screen-signup .formHeader h2 {
+    margin: 0;
+    padding: 0;
+  }
+}
