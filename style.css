@@ -338,26 +338,28 @@ iframe-container {
 
 /* ===== ALTURA FORMULÁRIO RUBEUS ===== */
 
+/* ===== ALTURA FORMULÁRIO RUBEUS ===== */
+
 #screen-signup .iframe-container {
-  height: 1050px !important;
-  min-height: 1050px !important;
+  height: 900px !important;
+  min-height: 900px !important;
   max-height: none !important;
   overflow: hidden !important;
 }
 
 #screen-signup .iframe-container iframe {
+  display: block;
   width: 100% !important;
-  height: 1050px !important;
-  min-height: 1050px !important;
+  height: 900px !important;
+  min-height: 900px !important;
   border: 0 !important;
-  overflow: hidden !important;
 }
 
+/* MOBILE */
 @media (max-width: 599px) {
   #screen-signup .iframe-container,
   #screen-signup .iframe-container iframe {
-    height: 1250px !important;
-    min-height: 1250px !important;
-    max-height: none !important;
+    height: 1050px !important;
+    min-height: 1050px !important;
   }
 }
