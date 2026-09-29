@@ -407,3 +407,14 @@ iframe-container {
     padding: 0;
   }
 }
+
+@media (max-width: 599px) {
+
+  #screen-signup .formHeader .btn.ghost::before {
+    font-size: 34px;
+    line-height: 1;
+    display: block;
+    transform: translateY(-7px);
+  }
+
+}
